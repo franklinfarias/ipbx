@@ -38,7 +38,7 @@ class queueLogToDB extends Command
      */
     public function handle()
     {
-        $start = mktime();
+        $start = time();
 
         $PATH_QUEUE_LOG = env('ASTK_PATH_QUEUE_LOG','/var/log/asterisk/');
 
@@ -84,7 +84,7 @@ class queueLogToDB extends Command
             $this->info(" \nerror opening the file.");
         }
 
-        $timeDiff = date("H:i:s", mktime() - $start);
+        $timeDiff = date("H:i:s", time() - $start);
 
         $this->info("\nTime $timeDiff. Done!");
     }
