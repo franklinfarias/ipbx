@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'S2N - Sistema de Integração de Informações NOC'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,8 +26,7 @@ return [
     |
     */
 
-    //'env' => env('APP_ENV', 'production'),
-    'env' => env('APP_ENV', 'development'),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://s2n.dev'),
+    'url' => env('APP_URL', 'http://s2in.dev'),
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +104,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'base64:QVCsbCdlX/nVS7C5gkA+/nbo8/MCuVgS6h3lnh0tJQ4='),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 

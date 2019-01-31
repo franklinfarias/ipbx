@@ -39,7 +39,7 @@ return [
             'prefix' => '',
         ],
 
-        'mysql' => [
+        env('DB_CONNECTION', 'mysql') => [
             'driver' => 'mysql',
             // server VERT 10.61.231.169
             'host' => env('DB_HOST', '172.98.0.13'),
@@ -55,14 +55,14 @@ return [
             'engine' => null,
         ],
 
-        'astk' => [
+        env('DB_ASTK_CONNECTION', 'astk') => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '172.98.0.13'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'asteriskcdrdb'),
-            'username' => env('DB_USERNAME', 'asterisk'),
-            'password' => env('DB_PASSWORD', 'S2in@2018'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => env('DB_ASTK_HOST', '127.0.0.1'),
+            'port' => env('DB_ASTK_PORT', '3306'),
+            'database' => env('DB_ASTK_DATABASE', 'asteriskcdrdb'),
+            'username' => env('DB_ASTK_USERNAME', 'root'),
+            'password' => env('DB_ASTK_PASSWORD', ''),
+            'unix_socket' => env('DB_ASTK_SOCKET', ''),
             //'charset' => 'utf8',
             //'collation' => 'utf8_general_ci',
             'prefix' => '',
@@ -70,20 +70,20 @@ return [
             'engine' => null,
         ],
 
-        'zbx' => [
+        /*env('DB_ASTK_CONNECTION', 'zbx') => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '10.61.231.146'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'zabbix'),
-            'username' => env('DB_USERNAME', 'usr_integra'),
-            'password' => env('DB_PASSWORD', 'V3rt#ert45!'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => env('DB_ZBX_HOST', '127.0.0.1'),
+            'port' => env('DB_ZBX_PORT', '3306'),
+            'database' => env('DB_ZBX_DATABASE', 'zabbix'),
+            'username' => env('DB_ZBX_USERNAME', 'root'),
+            'password' => env('DB_ZBX_PASSWORD', ''),
+            'unix_socket' => env('DB_ZBX_SOCKET', ''),
             //'charset' => 'utf8',
             //'collation' => 'utf8_general_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-        ],
+        ],*/
 
         'pgsql' => [
             'driver' => 'pgsql',
