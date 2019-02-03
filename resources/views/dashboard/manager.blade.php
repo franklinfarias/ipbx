@@ -167,7 +167,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <small class="stat-title">Última semana</small>
+                                <small class="stat-title">Últ. semana</small>
                                 <h3 class="m-0 w-500">
                                     <span class="animate-number" data-value="{{$widget4->first()->lastweek}}" data-animation-duration="1400">{{$widget4->first()->lastweek}}</span>
                                 </h3>
@@ -191,7 +191,7 @@
                             <div class="col-md-8">
                                 <div id="graph-wrapper">
                                     <div class="graph-info p-r-10">
-                                        <button id="btnTitle" class="btn btn-transparent">Chamadas Entrantes x Saintes por Hora</button>
+                                        <button id="btnTitle" class="btn btn-transparent">Chamadas Entrantes x Saintes x Aband. por Hora</button>
                                         <!-- a href="javascript:void(0)" class="btn bg-green">Tempo Médio</a -->
                                         <!-- a href="javascript:void(0)" class="btn bg-blue">Mês anterior</a -->
                                         <button id="bars" class="btn" disabled><span></span></button>
@@ -226,6 +226,21 @@
                                                 [7, {{!$widget51->isEmpty()?$widget51->first()->qt_15_saintes:0}}],
                                                 [8, {{!$widget51->isEmpty()?$widget51->first()->qt_16_saintes:0}}],
                                                 [9, {{!$widget51->isEmpty()?$widget51->first()->qt_17_saintes:0}}],
+                                                [10, 0],
+                                                [11, 0]
+                                            ];
+                                            // Abandonadas
+                                            var dataLine3 = [
+                                                [0, {{!$widget51->isEmpty()?$widget51->first()->qt_08_abandonadas:0}}],
+                                                [1, {{!$widget51->isEmpty()?$widget51->first()->qt_09_abandonadas:0}}],
+                                                [2, {{!$widget51->isEmpty()?$widget51->first()->qt_10_abandonadas:0}}],
+                                                [3, {{!$widget51->isEmpty()?$widget51->first()->qt_11_abandonadas:0}}],
+                                                [4, {{!$widget51->isEmpty()?$widget51->first()->qt_12_abandonadas:0}}],
+                                                [5, {{!$widget51->isEmpty()?$widget51->first()->qt_13_abandonadas:0}}],
+                                                [6, {{!$widget51->isEmpty()?$widget51->first()->qt_14_abandonadas:0}}],
+                                                [7, {{!$widget51->isEmpty()?$widget51->first()->qt_15_abandonadas:0}}],
+                                                [8, {{!$widget51->isEmpty()?$widget51->first()->qt_16_abandonadas:0}}],
+                                                [9, {{!$widget51->isEmpty()?$widget51->first()->qt_17_abandonadas:0}}],
                                                 [10, 0],
                                                 [11, 0]
                                             ];
@@ -269,6 +284,26 @@
                                                     [10, <?php $item = next($laravelBoqueta);echo $item->qt_saintes;?>],
                                                     [11, <?php $item = next($laravelBoqueta);echo $item->qt_saintes;?>]
                                                 ];
+                                            // Abandonadas
+                                                <?php
+                                                $widget52->first();
+                                                $laravelBoqueta = $widget52->getIterator();
+                                                $item = current($laravelBoqueta);
+                                                ?>
+                                            var dataBar3 = [
+                                                    [0, <?php echo $item->qt_abandonadas;?>],
+                                                    [1, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [2, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [3, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [4, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [5, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [6, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [7, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [8, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [9, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [10, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>],
+                                                    [11, <?php $item = next($laravelBoqueta);echo $item->qt_abandonadas;?>]
+                                                ];
                                                 <?php
                                                 } else {
                                                 ?>
@@ -287,6 +322,20 @@
                                                     [11, 0]
                                                 ];
                                             var dataBar2 = [
+                                                [0,0],
+                                                [1, 0],
+                                                [2, 0],
+                                                [3, 0],
+                                                [4, 0],
+                                                [5, 0],
+                                                [6, 0],
+                                                [7, 0],
+                                                [8, 0],
+                                                [9, 0],
+                                                [10, 0],
+                                                [11, 0]
+                                            ];
+                                            var dataBar3 = [
                                                 [0,0],
                                                 [1, 0],
                                                 [2, 0],

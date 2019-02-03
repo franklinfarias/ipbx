@@ -66,6 +66,30 @@ $(function () {
             lineWidth: 3
         },
         color: '#fff'
+    }, {
+        label: "Abandonadas",
+        data: dataLine3,
+        animator: {
+            steps: 300,
+            duration: 1000,
+            start: 0
+        },
+        lines: {
+            fill: 0.7,
+            lineWidth: 0,
+        },
+        color: '#C75757'
+    }, {
+        label: "Abandonadas",
+        data: dataLine3,
+        points: {
+            show: true,
+            fill: true,
+            radius: 6,
+            fillColor: "#C75757",
+            lineWidth: 3
+        },
+        color: '#fff'
     }, ];
 
     function lineCharts(){
@@ -124,10 +148,19 @@ $(function () {
         // Saintes
         label: "Saintes",
         data: dataBar2,
-        color: '#008fc0',
+        color: '#18A689',
         points: {
             radius: 4,
-            fillColor: '#008fc0'
+            fillColor: '#18A689'
+        }
+    }, {
+        // Abandonadas
+        label: "Abandonadas",
+        data: dataBar3,
+        color: '#C75757',
+        points: {
+            radius: 4,
+            fillColor: '#C75757'
         }
     }];
 
@@ -188,7 +221,7 @@ $(function () {
     });
 
     $("#lines").on("click", function () {
-        $('#btnTitle').html('Chamadas Entrantes x Saintes por Hora');
+        $('#btnTitle').html('Chamadas Entrantes x Saintes x Aband. por Hora');
         $('#bars').removeClass('active');
         $('#graph-bars').fadeOut();
         $(this).addClass('active');
@@ -202,7 +235,7 @@ $(function () {
     });
 
     $("#bars").on("click", function () {
-        $('#btnTitle').html('Chamadas Entrantes x Saintes por Mês');
+        $('#btnTitle').html('Chamadas Entrantes x Saintes x Aband. por Mês');
         $("#bars, #lines").attr("disabled", "disabled");
         $('#lines').removeClass('active');
         $('#graph-lines').fadeOut();
@@ -247,7 +280,7 @@ $(function () {
 
 
     //******************** CIRCLIFUL CIRCLE CHARTS ********************//
-
+    $('#pie_chart1').circliful();
 
 
     //************** SPARKLINE SMALL CHART *****************//

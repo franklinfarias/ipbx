@@ -17,12 +17,12 @@
                     <li>
                         <a href="{{route('user.list')}}"><span class="sidebar-text">Usuários</span></a>
                     </li>
-                    <li>
+                    <!-- li>
                         <a href="{{route('client.list')}}"><span class="sidebar-text">Clientes</span></a>
-                    </li>
+                    </li -->
                 </ul>
             </li>
-            <li>
+            <!-- li>
                 <a href="#"><i class="fa fa-edit"></i><span class="sidebar-text">Relatórios</span><span
                         class="fa arrow"></span></a>
                 <ul class="submenu collapse">
@@ -30,7 +30,7 @@
                         <a href="{{route('report.index')}}"><span class="sidebar-text">Clientes</span></a>
                     </li>
                 </ul>
-            </li>
+            </li -->
             <li>
                 <a href="#"><i class="fa fa-pencil"></i><span class="sidebar-text">Opções de Cores</span>
                     <span class="fa arrow"></span></a>

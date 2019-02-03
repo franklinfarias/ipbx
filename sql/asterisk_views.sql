@@ -1,39 +1,5 @@
 USE asteriskcdrdb;
 --
--- Functions
---
-DELIMITER $$
-CREATE FUNCTION asteriskcdrdb.fncTimeToInt (tTime TIME)
-RETURNS int(11)
-COMMENT 'Retorna Hora no formato inteiro'
-BEGIN
-    RETURN HOUR(tTime) * 3600 + MINUTE(tTime) * 60 + SECOND(tTime);
-END$$
-
-DELIMITER ;
-
-DELIMITER $$
-CREATE FUNCTION `fncIntToTime` (dtData INT)
-RETURNS varchar(12)
-COMMENT 'Retorna Hora no formato HH:MM:SS'
-BEGIN
-    DECLARE sumHoras INT;
-    DECLARE horaCalc INT;
-    DECLARE minutoCalc INT;
-    DECLARE segundoCalc INT;
-    /*-->> Método para cálculo de HORAS*/
-    SET sumHoras = dtData;
-    SET horaCalc = FLOOR(sumHoras / 3600);
-    SET sumHoras = sumHoras - (horaCalc * 3600);
-    SET minutoCalc = FLOOR(sumHoras / 60);
-    SET sumHoras = sumHoras - (minutoCalc * 60);
-    SET segundoCalc = sumHoras;
-    RETURN CONCAT(lpad(horaCalc, length(horaCalc), '0'),':',lpad(minutoCalc, 2, '0'),':',lpad(segundoCalc, 2, '0'));
-END$$
-
-DELIMITER ;
-
---
 -- Views General
 --
 --
@@ -153,6 +119,19 @@ where 1=1
 group by cdr.extension, date(cdr.calldate)
 ;
 --
+-- Quantidade Abandonadas Chamadas por Data
+--
+drop view if exists asteriskcdrdb.vw_abandon_by_day;
+create view asteriskcdrdb.vw_abandon_by_day as
+select
+date(timestamp) as calldate,
+count(holdtime) as qt_abandonadas
+from asteriskcdrdb.call_status
+where 1=1
+and status = 'ABANDON'
+group by date(timestamp)
+;
+--
 -- Quantidade Chamadas por Dia e Hora
 --
 drop view if exists asteriskcdrdb.vw_calls_by_day_hour;
@@ -249,6 +228,50 @@ from asteriskcdrdb.vw_cdr cdr
 join asterisk.devices ext on (cdr.src = ext.id or cdr.id_srcchannel = ext.id or cdr.dst = ext.id or cdr.id_dstchannel = ext.id)
 where 1=1
 group by date(cdr.calldate)
+;
+--
+-- Abandonadas Chamada por Dia e Hora
+--
+drop view if exists asteriskcdrdb.vw_abandon_by_day_hour;
+create view asteriskcdrdb.vw_abandon_by_day_hour as
+select
+date(timestamp) as calldate,
+sum(if((time(timestamp) >= '08:00:00' and time(timestamp) <= '08:59:59'), holdtime, 0)) as dur_08_abandonadas,
+sum(if((time(timestamp) >= '09:00:00' and time(timestamp) <= '09:59:59'), holdtime, 0)) as dur_09_abandonadas,
+sum(if((time(timestamp) >= '10:00:00' and time(timestamp) <= '10:59:59'), holdtime, 0)) as dur_10_abandonadas,
+sum(if((time(timestamp) >= '11:00:00' and time(timestamp) <= '11:59:59'), holdtime, 0)) as dur_11_abandonadas,
+sum(if((time(timestamp) >= '12:00:00' and time(timestamp) <= '12:59:59'), holdtime, 0)) as dur_12_abandonadas,
+sum(if((time(timestamp) >= '13:00:00' and time(timestamp) <= '13:59:59'), holdtime, 0)) as dur_13_abandonadas,
+sum(if((time(timestamp) >= '14:00:00' and time(timestamp) <= '14:59:59'), holdtime, 0)) as dur_14_abandonadas,
+sum(if((time(timestamp) >= '15:00:00' and time(timestamp) <= '15:59:59'), holdtime, 0)) as dur_15_abandonadas,
+sum(if((time(timestamp) >= '16:00:00' and time(timestamp) <= '16:59:59'), holdtime, 0)) as dur_16_abandonadas,
+sum(if((time(timestamp) >= '17:00:00' and time(timestamp) <= '17:59:59'), holdtime, 0)) as dur_17_abandonadas
+from asteriskcdrdb.call_status
+where 1=1
+and status in ('ABANDON')
+group by date(timestamp)
+;
+--
+-- Abandonadas Chamada por Dia e Hora
+--
+drop view if exists asteriskcdrdb.vw_qtd_abandon_by_day_hour;
+create view asteriskcdrdb.vw_qt_abandon_by_day_hour as
+select
+date(timestamp) as calldate,
+sum(if((time(timestamp) >= '08:00:00' and time(timestamp) <= '08:59:59'), 1, 0)) as qt_08_abandonadas,
+sum(if((time(timestamp) >= '09:00:00' and time(timestamp) <= '09:59:59'), 1, 0)) as qt_09_abandonadas,
+sum(if((time(timestamp) >= '10:00:00' and time(timestamp) <= '10:59:59'), 1, 0)) as qt_10_abandonadas,
+sum(if((time(timestamp) >= '11:00:00' and time(timestamp) <= '11:59:59'), 1, 0)) as qt_11_abandonadas,
+sum(if((time(timestamp) >= '12:00:00' and time(timestamp) <= '12:59:59'), 1, 0)) as qt_12_abandonadas,
+sum(if((time(timestamp) >= '13:00:00' and time(timestamp) <= '13:59:59'), 1, 0)) as qt_13_abandonadas,
+sum(if((time(timestamp) >= '14:00:00' and time(timestamp) <= '14:59:59'), 1, 0)) as qt_14_abandonadas,
+sum(if((time(timestamp) >= '15:00:00' and time(timestamp) <= '15:59:59'), 1, 0)) as qt_15_abandonadas,
+sum(if((time(timestamp) >= '16:00:00' and time(timestamp) <= '16:59:59'), 1, 0)) as qt_16_abandonadas,
+sum(if((time(timestamp) >= '17:00:00' and time(timestamp) <= '17:59:59'), 1, 0)) as qt_17_abandonadas
+from asteriskcdrdb.call_status
+where 1=1
+and status in ('ABANDON')
+group by date(timestamp)
 ;
 --
 -- View LastCall :: Chamadas que foram realizadas Com Sucesso
@@ -373,45 +396,68 @@ group by date(timestamp)
 -- Dashboard widgets
 -- Hourly & Monthly Statistics
 --
-drop view if exists asteriskcdrdb.vw_dashboard_widget5_2;
-create view asteriskcdrdb.vw_dashboard_widget5_2 as
+drop view if exists asteriskcdrdb.vw_calls_by_month;
+create view asteriskcdrdb.vw_calls_by_month as
 select
 mesAno.mes, mesAno.ano,
 coalesce(sum(qt_entrantes),0) as qt_entrantes,
 coalesce(sum(qt_saintes),0) as qt_saintes
 from asteriskcdrdb.vw_mes_ano mesAno
-left join asteriskcdrdb.vw_calls_by_day calls on mesAno.mes = month(calldate) and mesAno.ano = year(calldate)
+left join asteriskcdrdb.vw_calls_by_day calls on mesAno.mes = month(calls.calldate) and mesAno.ano = year(calls.calldate)
 where 1=1
 group by mesAno.mes, mesAno.ano
+;
+
+drop view if exists asteriskcdrdb.vw_dashboard_widget5_2;
+create view asteriskcdrdb.vw_dashboard_widget5_2 as
+select
+calls.mes, calls.ano,
+calls.qt_entrantes, calls.qt_saintes,
+coalesce(sum(aband.qt_abandonadas),0) as qt_abandonadas
+from asteriskcdrdb.vw_calls_by_month calls
+left join asteriskcdrdb.vw_abandon_by_day aband on calls.mes = month(aband.calldate) and calls.ano = year(aband.calldate)
+where 1=1
+group by calls.mes, calls.ano
 ;
 
 drop view if exists asteriskcdrdb.vw_dashboard_widget5_1;
 create view asteriskcdrdb.vw_dashboard_widget5_1 as
 select
-calldate,
+t1.calldate,
 coalesce(qt_08_entrantes,0) as qt_08_entrantes,
 coalesce(qt_08_saintes,0) as qt_08_saintes,
+coalesce(t2.qt_08_abandonadas,0) as qt_08_abandonadas,
 coalesce(qt_09_entrantes,0) as qt_09_entrantes,
 coalesce(qt_09_saintes,0) as qt_09_saintes,
+coalesce(t2.qt_09_abandonadas,0) as qt_09_abandonadas,
 coalesce(qt_10_entrantes,0) as qt_10_entrantes,
 coalesce(qt_10_saintes,0) as qt_10_saintes,
+coalesce(t2.qt_10_abandonadas,0) as qt_10_abandonadas,
 coalesce(qt_11_entrantes,0) as qt_11_entrantes,
 coalesce(qt_11_saintes,0) as qt_11_saintes,
+coalesce(t2.qt_11_abandonadas,0) as qt_11_abandonadas,
 coalesce(qt_12_entrantes,0) as qt_12_entrantes,
 coalesce(qt_12_saintes,0) as qt_12_saintes,
+coalesce(t2.qt_12_abandonadas,0) as qt_12_abandonadas,
 coalesce(qt_13_entrantes,0) as qt_13_entrantes,
 coalesce(qt_13_saintes,0) as qt_13_saintes,
+coalesce(t2.qt_13_abandonadas,0) as qt_13_abandonadas,
 coalesce(qt_14_entrantes,0) as qt_14_entrantes,
 coalesce(qt_14_saintes,0) as qt_14_saintes,
+coalesce(t2.qt_14_abandonadas,0) as qt_14_abandonadas,
 coalesce(qt_15_entrantes,0) as qt_15_entrantes,
 coalesce(qt_15_saintes,0) as qt_15_saintes,
+coalesce(t2.qt_15_abandonadas,0) as qt_15_abandonadas,
 coalesce(qt_16_entrantes,0) as qt_16_entrantes,
 coalesce(qt_16_saintes,0) as qt_16_saintes,
+coalesce(t2.qt_16_abandonadas,0) as qt_16_abandonadas,
 coalesce(qt_17_entrantes,0) as qt_17_entrantes,
-coalesce(qt_17_saintes,0) as qt_17_saintes
-from asteriskcdrdb.vw_calls_by_day_hour
+coalesce(qt_17_saintes,0) as qt_17_saintes,
+coalesce(t2.qt_17_abandonadas,0) as qt_17_abandonadas
+from asteriskcdrdb.vw_calls_by_day_hour t1
+left join asteriskcdrdb.vw_qt_abandon_by_day_hour t2 on date(t1.calldate) = date(t2.calldate)
 where 1=1
-and date(calldate) = current_date
+and date(t1.calldate) = current_date
 ;
 --
 -- Dashboard widgets
@@ -460,8 +506,8 @@ asteriskcdrdb.vw_dashboard_abandon_lastmonth
 drop view if exists asteriskcdrdb.vw_dashboard_tmt;
 create view asteriskcdrdb.vw_dashboard_tmt as
 select
-round(100-((sum(holdtime)*100)/sum(callduration)),2) as perc_duration,
-asteriskcdrdb.fncIntToTime(sum(callduration)) as time_duration
+coalesce(round(100-((sum(holdtime)*100)/sum(callduration)),2),0) as perc_duration,
+coalesce(asteriskcdrdb.fncIntToTime(sum(callduration)),0) as time_duration
 from asteriskcdrdb.call_status
 where 1=1
 and date(timestamp) = current_date
@@ -469,8 +515,8 @@ and date(timestamp) = current_date
 drop view if exists asteriskcdrdb.vw_dashboard_tma_tme;
 create view asteriskcdrdb.vw_dashboard_tma_tme as
 select
-asteriskcdrdb.fncIntToTime(floor(avg(callduration))) as time_tma,
-asteriskcdrdb.fncIntToTime(floor(avg(holdtime))) as time_tme
+coalesce(asteriskcdrdb.fncIntToTime(floor(avg(callduration))),0) as time_tma,
+coalesce(asteriskcdrdb.fncIntToTime(floor(avg(holdtime))),0) as time_tme
 from asteriskcdrdb.call_status
 where 1=1
 and status in ('COMPLETEAGENT')
@@ -479,7 +525,7 @@ and date(timestamp) = current_date
 drop view if exists asteriskcdrdb.vw_dashboard_tmbm;
 create view asteriskcdrdb.vw_dashboard_tmbm as
 select
-asteriskcdrdb.fncIntToTime(floor(avg(holdtime))) as time_tmb
+coalesce(asteriskcdrdb.fncIntToTime(floor(avg(holdtime))),0) as time_tmb
 from asteriskcdrdb.call_status
 where 1=1
 and status in ('ABANDON')
@@ -488,8 +534,8 @@ and date(timestamp) = current_date
 drop view if exists asteriskcdrdb.vw_dashboard_mxe;
 create view asteriskcdrdb.vw_dashboard_mxe as
 select
-asteriskcdrdb.fncIntToTime(min(holdtime)) as min_hold_time,
-asteriskcdrdb.fncIntToTime(max(holdtime)) as max_hold_time
+coalesce(asteriskcdrdb.fncIntToTime(min(holdtime)),0) as min_hold_time,
+coalesce(asteriskcdrdb.fncIntToTime(max(holdtime)),0) as max_hold_time
 from asteriskcdrdb.call_status
 where 1=1
 and status in ('COMPLETEAGENT')
