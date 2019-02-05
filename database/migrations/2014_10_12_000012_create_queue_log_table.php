@@ -15,7 +15,7 @@ class CreateQueueLogTable extends Migration
     {
         Schema::connection('astk')->create('queue_log', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('time')->nullable();
+            $table->string('time', 26)->nullable();
             $table->string('callid',255)->nullable();
             $table->string('queuename',255)->nullable();
             $table->string('agent',255)->nullable();
