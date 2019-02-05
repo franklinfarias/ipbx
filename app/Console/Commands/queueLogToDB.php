@@ -71,7 +71,7 @@ class queueLogToDB extends Command
                 //dd("$time|$callId|$queueName|$agent|$event");
 
                 if ($rs[0]->qtd <= 0){
-                    DB::connection('astk')->insert("INSERT INTO queue_log (time,callid,queuename,agent,event,data1,data2,data3,data4,data5) VALUES ('$time','$callId','$queueName','$agent','$event','$data1','$data2','$data3','$data4','$data5')");
+                    DB::connection('astk')->insert("INSERT INTO queue_log (time,callid,queuename,agent,event,data,data1,data2,data3,data4,data5) VALUES ('$time','$callId','$queueName','$agent','$event',null,'$data1','$data2','$data3','$data4','$data5')");
                     //$this->info(" \nInserted: $line");
                 } else {
                     //$this->info(" \nExists: $line");
