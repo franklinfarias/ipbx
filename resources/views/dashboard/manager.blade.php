@@ -74,7 +74,7 @@
                                 <i class="glyph-icon flaticon-visitors"></i>
                             </div>
                             <div class="col-xs-9">
-                                <small class="stat-title">Agentes</small>
+                                <small class="stat-title">Canais</small>
                                 <h1 class="m-0 w-500">{{$widget2->count()}}</h1>
                             </div>
                         </div>
@@ -83,17 +83,17 @@
                                 <small class="stat-title">Online</small>
                                 <h3 class="m-0 w-500">
                                     @if (!empty($agents))
-                                        {{$agents['sip']['online'] + $agents['iax']['online']}}
+                                        {{$agents['sip']['online'] + $agents['pjsip']['online'] + $agents['iax']['online']}}
                                     @else
                                         0
                                     @endif
                                 </h3>
                             </div>
                             <div class="col-xs-6">
-                                <small class="stat-title">Ocupados</small>
+                                <small class="stat-title">Offline</small>
                                 <h3 class="m-0 w-500">
                                     @if (!empty($agents))
-                                        {{$agents['sip']['offline'] + $agents['iax']['offline']}}
+                                        {{$agents['sip']['offline'] + $agents['pjsip']['offline'] + $agents['iax']['offline']}}
                                     @else
                                         0
                                     @endif

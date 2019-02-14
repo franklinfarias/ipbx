@@ -12,9 +12,9 @@ fi
 
 if [ "$P1" = "pjsip" ]; then
   if [ "$P2" = "offline" ]; then
-     /usr/sbin/asterisk -rx'pjsip show endpoints'|grep online|awk '{print $6}'|cut -d'/' -f
+     /usr/sbin/asterisk -rx'pjsip show endpoints'|grep Unvai|wc -l
   else
-     /usr/sbin/asterisk -rx'pjsip show endpoints'|grep online|awk '{print $4}'|cut -d'/' -f1
+     /usr/sbin/asterisk -rx'pjsip show endpoints'|grep Avail|wc -l
   fi
 fi
 

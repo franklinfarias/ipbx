@@ -68,6 +68,11 @@ class DashboardController extends Controller
             $exten['sip']['online'] = $output;
             $output = shell_exec('./ami_agent_client.sh sip offline');
             $exten['sip']['offline'] = $output;
+            // PJSIP
+            $output = shell_exec('./ami_agent_client.sh pjsip');
+            $exten['pjsip']['online'] = $output;
+            $output = shell_exec('./ami_agent_client.sh pjsip offline');
+            $exten['pjsip']['offline'] = $output;
             // IAX
             $output = shell_exec('./ami_agent_client.sh iax');
             $exten['iax']['online'] = $output;
