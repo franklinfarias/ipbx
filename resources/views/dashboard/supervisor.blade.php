@@ -83,7 +83,7 @@
                                 <small class="stat-title">Online</small>
                                 <h3 class="m-0 w-500">
                                     @if (!empty($agents))
-                                        {{$agents->count()}}
+                                        {{$agents['sip']['offline'] + $agents['pjsip']['offline'] + $agents['iax']['offline']}}
                                     @else
                                         0
                                     @endif
@@ -93,7 +93,7 @@
                                 <small class="stat-title">Ocupados</small>
                                 <h3 class="m-0 w-500">
                                     @if (!empty($agents))
-                                        {{$agents->count()}}
+                                        {{$agents['sip']['offline'] + $agents['pjsip']['offline'] + $agents['iax']['offline']}}
                                     @else
                                         0
                                     @endif
