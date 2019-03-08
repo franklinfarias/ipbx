@@ -9,13 +9,23 @@ class Rule extends S2NModel
     protected $table = 'rule';
     protected $primaryKey = 'id_rule';
 
+    /**
+     * Regras de validacao dos dados do formulario
+     */
+    public function rules(){
+        return [
+            'name_rule' => 'required|min:3|max:100|unique:siaf_rule,name_rule' .
+                ($this->id_rule?','.$this->id_rule.',id_rule':''),
+            'key' => 'required',
+        ];
+    }
+
     public function profiles(){
-        return $this->belongsToMany('Profile', 'profile_rule', 'id_rule', 'id_rule');
+        return $this->belongsToMany('App\Model\Profile', 'profile_rule', 'id_rule', 'id_rule');
     }
 
     public function admin()
     {
-        //return $this->belongsToMany(Admin::class);
         return $this->belongsToMany(User::class);
     }
 

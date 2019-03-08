@@ -13,6 +13,7 @@ class CreateQueueLogTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::connection('astk')->create('queue_log', function (Blueprint $table) {
             $table->increments('id');
             $table->string('time', 26)->nullable();
@@ -190,10 +191,7 @@ class CreateQueueLogTable extends Migration
             END IF;
           END
         ');
-
-        //DB::connection('astk')->unprepared('
-        //');
-
+        */
 
     }
 
@@ -204,9 +202,9 @@ class CreateQueueLogTable extends Migration
      */
     public function down()
     {
-        Schema::connection('astk')->dropIfExists('queue_log');
+        /*Schema::connection('astk')->dropIfExists('queue_log');
         Schema::connection('astk')->dropIfExists('queue_log_processed');
         Schema::connection('astk')->dropIfExists('call_status');
-        Schema::connection('astk')->dropIfExists('agent_status');
+        Schema::connection('astk')->dropIfExists('agent_status');*/
     }
 }

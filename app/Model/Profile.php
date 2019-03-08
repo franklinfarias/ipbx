@@ -27,15 +27,26 @@ class Profile extends S2NModel
     protected $table = 'profile';
     protected $primaryKey = 'id_profile';
 
+    /**
+     * Regras de validacao dos dados do formulario
+     */
+    public function rules(){
+        return [
+            'name_profile' => 'required|min:3|max:100|unique:profile,name' .
+                ($this->id_profile?','.$this->id_profile.',id_profile':''),
+            'ind_tp_profile' => 'required',
+        ];
+    }
+
     public function users(){
-        return $this->hasMany('User','id_profile','id_profile');
+        return $this->hasMany('App\Model\User','id_profile','id_profile');
     }
 
     /**
      * Retorna todas as REGRAS associadas ao usuario
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function rules(){
-        return $this->belongsToMany('Rule', 'profile_rule', 'id_profile', 'id_profile');
+    public function rules_(){
+        return $this->belongsToMany('App\Model\Rule',  'profile_rule', 'id_profile', 'id_rule');
     }
 }

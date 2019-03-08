@@ -51,6 +51,10 @@ class User extends S2NModel implements AuthenticatableContract, CanResetPassword
         'password.max' => 'O campo Nome tem tamanho máximo de 20 caracteres.',
     ];
 
+    public function profile(){
+        return $this->hasOne('App\Model\Profile','id_profile','id_profile');
+    }
+
     /**
      * @return mixed
      */

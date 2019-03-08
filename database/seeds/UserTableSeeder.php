@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
             'id_profile' => 1,
             'name' => 'Franklin Farias',
             'login' => 'franklin.farias',
-            'email' => 'franklin.farias@vert.com.br',
+            'email' => 'franklin@fksapiens.com.br',
             'extension' => '1000',
             'password' => bcrypt('123456'),
             'ind_st_user' => '1',
@@ -26,9 +26,9 @@ class UserTableSeeder extends Seeder
         //
         DB::table('user')->insert([
             'id_profile' => 1,
-            'name' => 'Tarcísio Belo',
-            'login' => 'tarcisio.belo',
-            'email' => 'tarcisio.belo@vert.com.br',
+            'name' => 'Bruno Reis',
+            'login' => 'bruno.reis',
+            'email' => 'bruno.reis@megateam.com.br',
             'extension' => '1001',
             'password' => bcrypt('123456'),
             'ind_st_user' => '1',

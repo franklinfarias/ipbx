@@ -335,13 +335,13 @@ $(function () {
     });
 
     /**/
-    $(window).scroll(function () {
+    /*$(window).scroll(function () {
         if ($('#pie_chart1').visible()) {
             if ($('.circle-text-half').length == 0) {
                 $('#pie_chart1').circliful();
             }
         }
-    });
+    });*/
 
 
     //******************** TO DO LIST ********************//
@@ -354,5 +354,6 @@ $(function () {
             $(this).closest('#task-manager').find('input:checkbox').prop('checked', false);
         }
     });
+
 
 });

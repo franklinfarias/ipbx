@@ -12,44 +12,7 @@ class ProfileRuleTableSeeder extends Seeder
     public function run()
     {
         // Admin
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 1]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 2]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 3]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 4]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 5]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 1, 'id_rule' => 6]
-        );
-        // Managers
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 2, 'id_rule' => 1]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 2, 'id_rule' => 2]
-        );
-        // Supervisors
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 3, 'id_rule' => 1]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 3, 'id_rule' => 2]
-        );
-        // Users
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 4, 'id_rule' => 1]
-        );
-        DB::table('profile_rule')->insert(
-            ['id_profile' => 4, 'id_rule' => 2]
-        );
+        DB::insert('insert into profile_rule(id_profile,id_rule) select 1, id_rule from rule');
+
     }
 }

@@ -401,13 +401,13 @@
         });
         function refresh() {
             if (new Date().getTime() - time >= 60000)
-            //window.location.reload(true);
-                document.getElementById("execucao-form").submit();
+                window.location.reload(true);
+                //document.getElementById("execucao-form").submit();
             else
                 setTimeout(refresh, 10000);
         }
 
-        //setTimeout(refresh, 10000);
+        setTimeout(refresh, 10000);
     </script>
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->

@@ -74,7 +74,7 @@
                                 <i class="glyph-icon flaticon-visitors"></i>
                             </div>
                             <div class="col-xs-9">
-                                <small class="stat-title">Agentes</small>
+                                <small class="stat-title">Canais</small>
                                 <h1 class="m-0 w-500">{{$widget2->count()}}</h1>
                             </div>
                         </div>
@@ -185,10 +185,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-
-            <!-- iframe name="frmFreePBXReport" src="http://172.12.0.4/fop2/?exten={{Auth::user()->extension}}&pass={{Auth::user()->extension}}" frameborder="0" style="overflow: hidden; position: absolute;" height="550px" width="1057px" ></iframe -->
+                <!-- iframe name="frmFreePBXReport" src="http://172.12.0.4/fop2/?exten={{Auth::user()->extension}}&pass={{Auth::user()->extension}}" frameborder="0" style="overflow: hidden; position: absolute;" height="550px" width="1057px" ></iframe -->
                 <!-- iframe name="frmFreePBXReport" src="http://172.12.0.4/fop2/?exten=1002&pass=1002" frameborder="0" style="overflow: hidden; position: absolute;" height="550px" width="1057px" ></iframe -->
-                <iframe name="frmFreePBXReport" src="https://172.10.0.3/index.php?menu=control_panel" frameborder="0" style="overflow: hidden; position: absolute;" height="550px" width="1057px" ></iframe>
+                <iframe name="frmFreePBXReport" src="{{env('FOP2_URL','http://localhost')}}/fop2/?exten={{Auth::user()->extension}}&pass={{Auth::user()->extension}}" frameborder="0" style="overflow: hidden; position: absolute;" height="550px" width="1057px" ></iframe>
 
             </div>
         </div>

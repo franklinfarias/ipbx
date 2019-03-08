@@ -33,7 +33,7 @@ $efetSainte = 0;
                                         </div>
                                         <div class="clearfix col-xs-8">
                                             <h2 class="c-dark w-600">{{$user->name}}</h2>
-                                            <p class="c-gray f-16">Rm: {{$user->extension}}</p>
+                                            <p class="c-gray f-16"><small>Ramal:{{$user->extension}}</small></p>
                                         </div>
                                     </div>
 
@@ -79,7 +79,7 @@ $efetSainte = 0;
                                             </div>
                                             <div class="col-xs-4 bg-red p-20">
                                                 <div class="text-center m-b-10">
-                                                    <i class="f-24 fa fa-heart"></i>
+                                                    <i class="f-24 fa fa-bullhorn"></i>
                                                 </div>
                                                 <div class="text-center f-16">
                                                     {{$totalUser}}

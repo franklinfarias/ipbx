@@ -228,6 +228,10 @@ $(function () {
     /* ==============================================
      USER PROFILE: CIRCLIFUL CIRCLE CHARTS
      =============================================== */
+
+    $('#pieChart01').circliful();
+    $('#pieChart02').circliful();
+
     $(window).scroll(function () {
         if ($('#pieChart01').visible()) {
             if ($('.circle-text-half').length == 0) {
