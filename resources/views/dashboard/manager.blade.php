@@ -11,6 +11,73 @@
 
     <div id="main-content" class="dashboard">
         <div class="row m-t-20">
+            <!-- div class="col-md-12 col-sm-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Extension</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1010</th>
+                        <td><span class="btn btn-primary" id="exten1010">Offline</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">1003</th>
+                        <td><span class="btn btn-primary" id="exten1003">Offline</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <script src="//js.pusher.com/3.1/pusher.min.js"></script>
+                <script type="text/javascript">
+                    // Enable pusher logging - don't include this in production
+                    // Pusher.logToConsole = true;
+
+                    var pusher = new Pusher('4ffd12884a4093fd4bf7', {
+                        cluster: 'us2',
+                        encrypted: true
+                    });
+
+                    var channel = pusher.subscribe('extension-status');
+                    // Bind a function to a Event (the full Laravel class)
+                    channel.bind('App\\Events\\ExtensionStatus', function(data) {
+
+                        console.log(data);
+
+                        var extensionTable = $('.table');
+                        var exten = data.extension;
+
+                        // Testado
+                        //var extensionStatusText = extensionTable.find('.notif-'+exten);
+                        //extensionStatusText.text(data.statusText);
+
+                        var extensionSpan = $("[id='exten"+exten+"']");
+                        extensionSpan.text(data.statusText);
+
+                        var badgeStyle = "btn btn-primary";
+
+                        switch(parseInt(data.status)) {
+                            case 1:
+                                extensionSpan.addClass('btn btn-success');
+                                break;
+                            case 2:
+                                extensionSpan.addClass('btn btn-danger');
+                                break;
+                            case 8:
+                                extensionSpan.addClass('btn btn-warning');
+                                break;
+                            case 16:
+                                extensionSpan.addClass('btn btn-info');
+                                break;
+                            default:
+                                extensionSpan.addClass(badgeStyle);
+                        }
+
+                    });
+                </script>
+            </div -->
             <div class="col-md-3 col-sm-12">
                 <div class="panel no-bd bd-3 panel-stat">
                     <div class="panel-body bg-blue p-15">

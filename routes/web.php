@@ -15,6 +15,11 @@ Auth::routes();
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
+Route::get('exten', function () {
+    event(new App\Events\ExtensionStatus('test'));
+    return "Event has been sent!";
+});
+
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', ['as' => 'home', 'uses' => 'Dashboard\DashboardController@index', 'rule' => 'home']);
     Route::get('/home', ['as' => 'home', 'uses' => 'Dashboard\DashboardController@index', 'rule' => 'home']);

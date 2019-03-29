@@ -131,74 +131,6 @@ $efetSainte = 0;
                             <!-- BEGIN PROFIL STATS -->
                             <div class="col-md-6 profil-content m-t-20">
                                 <div class="row">
-                                    <div class="col-md-12 profil-content">
-                                        <div id="graph-wrapper">
-                                            <div class="graph-info p-r-10">
-                                                <button id="btnTitle" class="btn btn-transparent">Chamadas Entrantes x Saintes do Dia por Hora</button>
-                                                <button id="bars" class="btn" disabled><span></span></button>
-                                                <button id="lines" class="btn active" disabled><span></span></button>
-                                            </div>
-                                            <div class="h-300">
-                                                <script type="text/javascript">
-                                                    // Line Chart
-                                                    var dataEntrantes = [
-                                                        [0,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_08_entrantes:0}}],
-                                                        [1,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_09_entrantes:0}}],
-                                                        [2,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_10_entrantes:0}}],
-                                                        [3,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_11_entrantes:0}}],
-                                                        [4,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_12_entrantes:0}}],
-                                                        [5,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_13_entrantes:0}}],
-                                                        [6,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_14_entrantes:0}}],
-                                                        [7,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_15_entrantes:0}}],
-                                                        [8,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_16_entrantes:0}}],
-                                                        [9,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_17_entrantes:0}}],
-                                                    ];
-                                                    var dataSaintes = [
-                                                        [0,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_08_saintes:0}}],
-                                                        [1,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_09_saintes:0}}],
-                                                        [2,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_10_saintes:0}}],
-                                                        [3,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_11_saintes:0}}],
-                                                        [4,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_12_saintes:0}}],
-                                                        [5,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_13_saintes:0}}],
-                                                        [6,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_14_saintes:0}}],
-                                                        [7,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_15_saintes:0}}],
-                                                        [8,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_16_saintes:0}}],
-                                                        [9,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_17_saintes:0}}],
-                                                    ];
-                                                    // Bar Chart
-                                                    var dataEntrantesMes = [
-                                                        @php
-                                                            $count = 0;
-                                                            foreach ($widget3 as $item){
-                                                                echo "[$count," . $item->qt_entrantes . "],";
-                                                                $count++;
-                                                            }
-                                                            if ($count == 0){
-                                                                echo "[0,0]";
-                                                            }
-                                                        @endphp
-                                                    ];
-
-                                                    var dataSaintesMes = [
-                                                        @php
-                                                            $count = 0;
-                                                            foreach ($widget3 as $item){
-                                                                echo "[$count," . $item->qt_saintes . "],";
-                                                                $count++;
-                                                            }
-                                                            if ($count == 0){
-                                                                echo "[0,0]";
-                                                            }
-                                                        @endphp
-                                                    ];
-                                                </script>
-                                                <div class="h-300" id="flotChart01" style="width: 100%; height: 200px;"></div>
-                                                <div class="h-300" id="flotChart02" style="width: 100%; height: 200px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <h4>Efetividade no atendimento</h4>
                                     <br>
                                     <div class="col-md-6 profil-content">
@@ -212,8 +144,87 @@ $efetSainte = 0;
                                         </div>
                                     </div>
                                 </div>
+                                <!-- div class="row">
+
+                                </div -->
                             </div>
                             <!-- END PROFIL STATS -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 profil-content">
+                                <div id="graph-wrapper">
+                                    <div class="graph-info p-r-10">
+                                        <button id="btnTitle" class="btn btn-transparent">Chamadas Entrantes x Saintes do Dia por Hora</button>
+                                        <button id="bars" class="btn" disabled><span></span></button>
+                                        <button id="lines" class="btn active" disabled><span></span></button>
+                                    </div>
+                                    <div class="h-300">
+                                        <script type="text/javascript">
+
+                                            // Line Chart
+
+                                            var dataEntrantes = [
+                                                [0,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_08_entrantes:0}}],
+                                                [1,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_09_entrantes:0}}],
+                                                [2,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_10_entrantes:0}}],
+                                                [3,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_11_entrantes:0}}],
+                                                [4,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_12_entrantes:0}}],
+                                                [5,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_13_entrantes:0}}],
+                                                [6,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_14_entrantes:0}}],
+                                                [7,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_15_entrantes:0}}],
+                                                [8,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_16_entrantes:0}}],
+                                                [9,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_17_entrantes:0}}],
+                                                [10, 0],
+                                                [11, 0]
+                                            ];
+                                            var dataSaintes = [
+                                                [0,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_08_saintes:0}}],
+                                                [1,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_09_saintes:0}}],
+                                                [2,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_10_saintes:0}}],
+                                                [3,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_11_saintes:0}}],
+                                                [4,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_12_saintes:0}}],
+                                                [5,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_13_saintes:0}}],
+                                                [6,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_14_saintes:0}}],
+                                                [7,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_15_saintes:0}}],
+                                                [8,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_16_saintes:0}}],
+                                                [9,{{!$dataWidget2->isEmpty()?$dataWidget2->first()->qt_17_saintes:0}}],
+                                                [10, 0],
+                                                [11, 0]
+                                            ];
+
+                                            // Bar Chart
+
+                                            var dataEntrantesMes = [
+                                                @php
+                                                    $count = 0;
+                                                    foreach ($widget3 as $item){
+                                                        echo "[$count," . $item->qt_entrantes . "],";
+                                                        $count++;
+                                                    }
+                                                    if ($count == 0){
+                                                        echo "[0,0]";
+                                                    }
+                                                @endphp
+                                            ];
+
+                                            var dataSaintesMes = [
+                                                @php
+                                                    $count = 0;
+                                                    foreach ($widget3 as $item){
+                                                        echo "[$count," . $item->qt_saintes . "],";
+                                                        $count++;
+                                                    }
+                                                    if ($count == 0){
+                                                        echo "[0,0]";
+                                                    }
+                                                @endphp
+                                            ];
+                                        </script>
+                                        <div class="h-300" id="flotChart01" style="width: 100%; height: 200px;"></div>
+                                        <div class="h-300" id="flotChart02" style="width: 100%; height: 200px;"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -119,6 +119,7 @@ class DashboardController extends Controller
                 empty($data) ? $data = $item->num_incoming_call : $data .= ','.$item->num_incoming_call;
             }
             $widget7 = $data;
+
             return view('dashboard.manager', compact('widget1', 'widget2', 'agents','widget3','widget4','widget51','widget52','widget6','widget7','widget8'));
         } elseif ($profile == 'Supervisors') {
             $widget1 = CallCenterDashboard::widget1();
